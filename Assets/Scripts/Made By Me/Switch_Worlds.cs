@@ -8,7 +8,7 @@ public class Switch_Worlds : MonoBehaviour
 
     public float distance = 15f;
     public GameObject reference;
-    private bool isFirstWorld = true;
+    public bool isFirstWorld = true;
     private GameObject player;
 
     private Collider2D collider;
