@@ -14,6 +14,8 @@ public class PlayerMovement_Burg : MonoBehaviour
     public int maxJumps = 2;
     private int jumps;
     public float jumpForce = 400;
+    [Range(0.0f, 1.0f)]
+    public float airDrag = 0.1f;
     //public bool canMoveInAir = true;
     private float moveInput;
 
@@ -24,7 +26,7 @@ public class PlayerMovement_Burg : MonoBehaviour
     [Header("Ground Check")]
     public LayerMask groundLayer;
     private float boxCastDepth = 0.01f;
-    //private bool isGrounded = false;
+    private bool isGrounded = false;
 
 
     // Start is called before the first frame update
@@ -38,6 +40,15 @@ public class PlayerMovement_Burg : MonoBehaviour
     void FixedUpdate() {
         moveInput = Input.GetAxis("Horizontal");
         rigidBody.velocity = new Vector2(moveInput * walkSpeed, rigidBody.velocity.y);
+        if (isGrounded) {
+            jumps = 0;
+        } else {
+            UnityEngine.Debug.Log("Airborne");
+            Vector2 vel = rigidBody.velocity;
+            vel.x *= (1.0f - airDrag);
+            rigidBody.velocity = vel; //applies horizontal drag while airborne
+        }
+        UnityEngine.Debug.Log(rigidBody.velocity);
         //Debug.Log("Fixed " + jumps);
     }
 
@@ -57,18 +68,12 @@ public class PlayerMovement_Burg : MonoBehaviour
     private void ComputeIsGrounded() {
         RaycastHit2D hit = Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.down, boxCastDepth, groundLayer);
         Color color;
-        if (hit.collider == null) {
-            //isGrounded = false;
-            color = Color.red;
-        }
-        else {
-            //isGrounded = true;
-            if (rigidBody.velocity.y <= 0) {
-                //Debug.Log(" Grounded Jumps = " + jumps);
-                jumps = 0;
-                //Debug.Log("Jumps reset " + jumps);
-            }
+        if (hit.collider && rigidBody.velocity.y <= 0) {
+            isGrounded = true;
             color = Color.green;
+        } else {
+            isGrounded = false;
+            color = Color.red;
         }
         Debug.DrawRay(collider.bounds.center + new Vector3(collider.bounds.extents.x, 0), Vector2.down * (collider.bounds.extents.y + boxCastDepth), color);
         Debug.DrawRay(collider.bounds.center - new Vector3(collider.bounds.extents.x, 0), Vector2.down * (collider.bounds.extents.y + boxCastDepth), color);
