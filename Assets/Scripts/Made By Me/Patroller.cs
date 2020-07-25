@@ -25,8 +25,8 @@ public class Patroller : MonoBehaviour
     {
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, 0);
         shouldMove = connected.shouldMove;
-        UnityEngine.Debug.Log(connected.shouldMove);
-        if (connected.shouldMove) {
+        UnityEngine.Debug.Log(shouldMove);
+        if (shouldMove) {
             Patrol();
         }
     }

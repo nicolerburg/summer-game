@@ -28,7 +28,7 @@ public class Switch_Worlds : MonoBehaviour
         else if (player.transform.position.y < reference.transform.position.y) {
             isFirstWorld = false;
         }
-        if (Input.GetKeyDown(KeyCode.E)) {
+        if (Input.GetKeyDown(KeyCode.E) && player.transform.position.x > reference.transform.position.x) {
             SwitchWorlds();
         }
     }

@@ -25,7 +25,7 @@ public class Connected_Objects : MonoBehaviour
     {
         isPlayerFirstWorld = switcher.isFirstWorld; //gets players world location
         if (isMoveable) {
-            if (isPlayerFirstWorld && inFirstWorld || !(isPlayerFirstWorld && inFirstWorld)) {
+            if (isPlayerFirstWorld && inFirstWorld || (!isPlayerFirstWorld && !inFirstWorld)) {
                 shouldMove = true;
             }
             else {
