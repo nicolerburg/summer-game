@@ -18,6 +18,7 @@ public class PlayerMovement_Burg : MonoBehaviour
     public float airDrag = 0.1f;
     //public bool canMoveInAir = true;
     private float moveInput;
+    public Animator animator;
 
     private Rigidbody2D rigidBody;
     private SpriteRenderer spriteRenderer;
@@ -40,6 +41,7 @@ public class PlayerMovement_Burg : MonoBehaviour
     void FixedUpdate() {
         moveInput = Input.GetAxis("Horizontal");
         rigidBody.velocity = new Vector2(moveInput * walkSpeed, rigidBody.velocity.y);
+        animator.SetFloat("speed", Math.Abs(rigidBody.velocity.x));
         if (isGrounded) {
             jumps = 0;
         } else {

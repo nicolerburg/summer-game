@@ -12,6 +12,7 @@ public class GameManager_Burg : MonoBehaviour
     public GameObject player; //public looks gives field in Unity
     private PlayerMovement_Burg playerMov; //private looks for script already attached to player object
     private Health_Burg playerH;
+    private Switch_Worlds switcher;
 
 
     [Header("Spawn Point")]
