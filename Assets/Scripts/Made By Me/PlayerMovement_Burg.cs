@@ -57,8 +57,12 @@ public class PlayerMovement_Burg : MonoBehaviour
     // Update is called once per frame
     void Update() {
         ComputeIsGrounded();
+        if (isGrounded) {
+            animator.SetBool("isJumping", false);
+        }
         if (Input.GetKeyDown(KeyCode.Space) && jumps < maxJumps) {
             rigidBody.velocity = Vector2.up * jumpForce;
+            animator.SetBool("isJumping", true);
             ++jumps;
             //Debug.Log("Jumps= " + jumps);
         } else if (Input.GetKeyDown(KeyCode.Space)) {
