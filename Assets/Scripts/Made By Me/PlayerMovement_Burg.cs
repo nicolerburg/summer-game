@@ -16,7 +16,9 @@ public class PlayerMovement_Burg : MonoBehaviour
     public float jumpForce = 400;
     [Range(0.0f, 1.0f)]
     public float airDrag = 0.1f;
-    //public bool canMoveInAir = true;
+
+    [HideInInspector]
+    public bool frozen = false;
     private float moveInput;
     public Animator animator;
 
@@ -39,17 +41,26 @@ public class PlayerMovement_Burg : MonoBehaviour
     }
 
     void FixedUpdate() {
+
         moveInput = Input.GetAxis("Horizontal");
-        rigidBody.velocity = new Vector2(moveInput * walkSpeed, rigidBody.velocity.y);
+        if (!frozen) {
+            rigidBody.velocity = new Vector2(moveInput * walkSpeed, rigidBody.velocity.y);
+        }
+        else {
+            rigidBody.velocity = new Vector3(0.0f, rigidBody.velocity.y, 0.0f);
+        }
+
         animator.SetFloat("speed", Math.Abs(rigidBody.velocity.x));
+
         if (isGrounded) {
             jumps = 0;
         } else {
-            UnityEngine.Debug.Log("Airborne");
+            //UnityEngine.Debug.Log("Airborne");
             Vector2 vel = rigidBody.velocity;
             vel.x *= (1.0f - airDrag);
             rigidBody.velocity = vel; //applies horizontal drag while airborne
         }
+
         UnityEngine.Debug.Log(rigidBody.velocity);
         //Debug.Log("Fixed " + jumps);
     }
