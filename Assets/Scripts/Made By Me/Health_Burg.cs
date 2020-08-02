@@ -21,7 +21,7 @@ public class Health_Burg : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        
+
     }
 
     //Subtracts health from player upon damage

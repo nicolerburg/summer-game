@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class PlayerMovement_Burg : MonoBehaviour
@@ -16,10 +17,12 @@ public class PlayerMovement_Burg : MonoBehaviour
     public float jumpForce = 400;
     [Range(0.0f, 1.0f)]
     public float airDrag = 0.1f;
+    public float ladderCheckHeight;
 
     [HideInInspector]
     public bool frozen = false;
     private float moveInput;
+    private float inputVertical;
     public Animator animator;
 
     private Rigidbody2D rigidBody;
@@ -28,8 +31,10 @@ public class PlayerMovement_Burg : MonoBehaviour
 
     [Header("Ground Check")]
     public LayerMask groundLayer;
+    public LayerMask ladderLayer;
     private float boxCastDepth = 0.01f;
     private bool isGrounded = false;
+    private bool isClimbing = false;
 
 
     // Start is called before the first frame update
@@ -61,8 +66,24 @@ public class PlayerMovement_Burg : MonoBehaviour
             rigidBody.velocity = vel; //applies horizontal drag while airborne
         }
 
-        UnityEngine.Debug.Log(rigidBody.velocity);
-        //Debug.Log("Fixed " + jumps);
+        RaycastHit2D ladderHit = Physics2D.Raycast(transform.position, Vector2.up, ladderCheckHeight, ladderLayer);
+
+        if(ladderHit.collider != null) {
+            if (Input.GetKeyDown(KeyCode.W)) {
+                isClimbing = true;
+            }
+        } else {
+            isClimbing = false;
+        }
+
+        if(isClimbing) {
+            inputVertical = Input.GetAxis("Vertical");
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, inputVertical * walkSpeed);
+            rigidBody.gravityScale = 0;
+        } else {
+            rigidBody.gravityScale = 1.2f;
+        }
+
     }
 
     // Update is called once per frame
@@ -71,13 +92,15 @@ public class PlayerMovement_Burg : MonoBehaviour
         if (isGrounded) {
             animator.SetBool("isJumping", false);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && jumps < maxJumps) {
-            rigidBody.velocity = Vector2.up * jumpForce;
-            animator.SetBool("isJumping", true);
-            ++jumps;
-            //Debug.Log("Jumps= " + jumps);
-        } else if (Input.GetKeyDown(KeyCode.Space)) {
-            //Debug.Log("Can't jump, Jumps= " + jumps);
+        if (!frozen) {
+            if (Input.GetKeyDown(KeyCode.Space) && jumps < maxJumps) {
+                rigidBody.velocity = Vector2.up * jumpForce;
+                animator.SetBool("isJumping", true);
+                ++jumps;
+                //Debug.Log("Jumps= " + jumps);
+            } else if (Input.GetKeyDown(KeyCode.Space)) {
+                //Debug.Log("Can't jump, Jumps= " + jumps);
+            }
         }
         UpdateDirection();
     }
