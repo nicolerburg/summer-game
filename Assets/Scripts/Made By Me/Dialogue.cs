@@ -75,12 +75,12 @@ public class Dialogue : MonoBehaviour {
         inputStream.Clear();
         CanvasBox.SetActive(false);
 
-        UnFreezePlayer();
-
         if (currentTrigger.singleUseDialogue) {
             currentTrigger.hasBeenUsed = true;
         }
         inputStream.Clear();
+
+        Invoke("UnFreezePlayer", 0.5f);
 
     }
 }

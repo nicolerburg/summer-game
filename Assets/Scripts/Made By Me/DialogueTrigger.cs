@@ -25,7 +25,7 @@ public class DialogueTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!hasBeenUsed && inArea && Input.GetKeyDown(KeyCode.Return) && nextTime < Time.timeSinceLevelLoad) {
+        if (!hasBeenUsed && inArea && Input.GetKeyDown(KeyCode.Space) && nextTime < Time.timeSinceLevelLoad) {
             nextTime = Time.timeSinceLevelLoad + waitTime;
             manager.AdvanceDialogue();
         }

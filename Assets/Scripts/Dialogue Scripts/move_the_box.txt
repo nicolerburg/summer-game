@@ -1,0 +1,4 @@
+[NAME =Winston]
+Yes! Perfect!
+You should be able to move that old box with the handle on the side...
+Hold down left click while standing next to it to grab the box.
