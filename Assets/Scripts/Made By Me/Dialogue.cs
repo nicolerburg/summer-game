@@ -17,6 +17,7 @@ public class Dialogue : MonoBehaviour {
     private Queue<string> inputStream = new Queue<string>();
 
     private PlayerMovement_Burg playerMovement;
+    private Switch_Worlds switcher;
 
     [HideInInspector]
     public DialogueTrigger currentTrigger;
@@ -34,11 +35,14 @@ public class Dialogue : MonoBehaviour {
 
     private void FreezePlayer() {
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement_Burg>();
+        switcher = GameObject.FindGameObjectWithTag("GameController").GetComponent<Switch_Worlds>();
         playerMovement.frozen = true;
+        switcher.isFrozen = true;
     }
 
     private void UnFreezePlayer() {
         playerMovement.frozen = false;
+        switcher.isFrozen = false;
     }
 
     public void StartDialogue(Queue<string> dialogue) {

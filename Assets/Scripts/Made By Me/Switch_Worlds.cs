@@ -11,6 +11,9 @@ public class Switch_Worlds : MonoBehaviour
     public bool isFirstWorld = true;
     private GameObject player;
 
+    [HideInInspector]
+    public bool isFrozen = false;
+
     private Collider2D collider;
 
     // Start is called before the first frame update
@@ -28,7 +31,7 @@ public class Switch_Worlds : MonoBehaviour
         else if (player.transform.position.y < reference.transform.position.y) {
             isFirstWorld = false;
         }
-        if (Input.GetKeyDown(KeyCode.E) && player.transform.position.x > reference.transform.position.x) {
+        if (Input.GetKeyDown(KeyCode.E) && player.transform.position.x > reference.transform.position.x && !isFrozen) {
             SwitchWorlds();
         }
     }

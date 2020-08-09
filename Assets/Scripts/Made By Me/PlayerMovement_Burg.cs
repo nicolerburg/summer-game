@@ -102,7 +102,9 @@ public class PlayerMovement_Burg : MonoBehaviour
                 //Debug.Log("Can't jump, Jumps= " + jumps);
             }
         }
-        UpdateDirection();
+        if (!frozen) {
+            UpdateDirection();
+        }
     }
 
     private void ComputeIsGrounded() {

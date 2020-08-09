@@ -53,3 +53,12 @@ TagManager:
   - name: Foreground
     uniqueID: 3246009497
     locked: 0
+  - name: Tileset
+    uniqueID: 2623221771
+    locked: 0
+  - name: NPCS
+    uniqueID: 1770134833
+    locked: 0
+  - name: Player
+    uniqueID: 3222373597
+    locked: 0
