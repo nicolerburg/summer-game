@@ -14,6 +14,7 @@ public class Switch_Worlds : MonoBehaviour
     [HideInInspector]
     public bool isFrozen = false;
     public bool wantsToSwitch = false;
+    public bool canSwitch = true;
 
     private Collider2D collider;
 
@@ -36,7 +37,9 @@ public class Switch_Worlds : MonoBehaviour
             wantsToSwitch = true;
         } else { wantsToSwitch = false; }
         if (Input.GetKeyDown(KeyCode.E) && player.transform.position.x > reference.transform.position.x && !isFrozen) {
-            SwitchWorlds();
+            if (canSwitch) {
+                SwitchWorlds();
+            }
         }
     }
 
