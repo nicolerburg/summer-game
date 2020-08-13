@@ -1,14 +1,14 @@
-[NAME = Owner]
+[NAME = Meredith]
 Hi, Quinn. It's so nice to see you this afternoon.
 You are looking a bit sad, but as I always say...
 There is nothing a good book can't solve!
 
 [NAME = Quinn]
-Hey, Owner...
-I don't know...It's just something about this town, it seems so inconsequential.
+Hey, Meredith...
+I don't know...It's just something about this town, Woodville, it seems so inconsequential.
 Like, why does it even need to exist?
 
-[NAME = Owner]
+[NAME = Meredith]
 Well, Quinn...
 Perhaps you need to learn what this town is really about.
 Go out the back and press E...
